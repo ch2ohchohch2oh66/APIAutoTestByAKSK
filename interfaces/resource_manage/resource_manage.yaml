@@ -1,0 +1,18 @@
+create_resource:
+  method: POST
+  url: /api/rest/external/resource/create
+  req_body: {
+    resName: babaoshan1hao,
+    type: grave,
+    owner: baozi,
+    No.: 74
+  }
+  header: {"content-type": "application/json"}
+
+update_resource:
+  method: PUT
+  url: /api/rest/external/resource/create/{resId}
+  req_body: {
+    owner: xijiaopen
+  }
+  header: {"content-type": "application/json"}

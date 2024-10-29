@@ -1,0 +1,43 @@
+create_user:
+  comment: 创建用户
+  schema: https://
+  url: /api/rest/external/{version}/user/create
+  method: POST
+  req_body: {
+    "name": "wzztest",
+    "password": "Test12345_",
+    "phone": 16804010001
+  }
+  header: { "content-type": "application/json" }
+  expected_response_code: 200
+
+update_user:
+  comment: 修改用户
+  schema: https://
+  url: /api/rest/external/{version}/user/update/{userId}
+  method: PUT
+  req_body: {
+    "name": "wzztestUpdate",
+    "password": "Test12345_",
+    "phone": 16804010001
+  }
+  header: { "content-type": "application/json" }
+  expected_response_code: 200
+
+delete_user:
+  comment: 删除用户
+  schema: https://
+  url: /api/rest/external/{version}/user/delete/{userId}
+  method: DELETE
+  req_body:
+  header: { "content-type": "application/json" }
+  expected_response_code: 200
+
+query_user:
+  comment: 查询用户信息
+  schema: https://
+  url: /api/rest/external/{version}/user/query/{userId}
+  method: GET
+  req_body:
+  header: { "content-type": "application/json" }
+  expected_response_code: 200
