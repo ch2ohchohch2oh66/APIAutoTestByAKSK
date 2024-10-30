@@ -19,7 +19,12 @@ class TestCaseUserManage:
 
     def test_01_create_user(self, api_client):
         logger.info("testcase 01 create_user")
-        self.interfaceUserManage.create_user(api_client)
+        user_info = {
+            'user': {
+                'name': 'IAMUser002'
+            }
+        }
+        self.interfaceUserManage.create_user(api_client, user_info)
 
     def test_02_update_user(self, api_client):
         logger.info("testcase 02 update_user")

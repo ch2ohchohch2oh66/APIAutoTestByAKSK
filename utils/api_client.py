@@ -75,17 +75,25 @@ class ApiClient:
 
         # 发送请求
         logger.info(f'ApiClient send_request')
-        logger.info(f'send_request url : {url}')
+        logger.info(f'+++ request method is: {method}')
+        logger.info(f'+++ request url is: {url}')
+        logger.info(f'+++ request headers is: {r.headers}')
         try:
             if files:
+                logger.info(f'+++ request date type is: FILES, data content is: {r.body}')
                 response = requests.request(method=method, url=url, headers=r.headers, files=r.body)
             elif json_data:
+                logger.info(f'+++ request date type is: JSON, data content is: {json_data}')
                 response = requests.request(method=method, url=url, headers=r.headers, json=json_data)
             elif data:
+                logger.info(f'+++ request date type is: DATA, data content is: {r.body}')
                 response = requests.request(method=method, url=url, headers=r.headers, data=r.body)
             else:
                 response = requests.request(method=method, url=url, headers=r.headers)
 
+            logger.info(f'=== response status_code is: {response.status_code}')
+            logger.info(f'=== response text is: {response.text}')
+            logger.info(f'=== response headers is: {response.text}')
             return response
 
         except requests.exceptions.HTTPError as http_err:
