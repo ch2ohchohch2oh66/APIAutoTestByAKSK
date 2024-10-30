@@ -2,3 +2,4 @@ pyyaml
 pytest
 requests
 exceptiongroup
+requests_toolbelt
