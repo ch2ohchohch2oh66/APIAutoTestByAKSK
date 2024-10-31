@@ -1,0 +1,37 @@
+list_user_groups:
+  url: /v3/groups
+  method: GET
+  req_body: {}
+
+create_user_group:
+  url: /v3/groups
+  method: POST
+  req_body:
+    {
+      group:
+        {
+          name: userGroup1
+        }
+    }
+
+update_user_group:
+  url: /v3/groups/{group_id}
+  method: PATCH
+  req_body:
+    {
+      group:
+        {
+          name: userGroup1NewName
+        }
+    }
+
+delete_user_group:
+  url: /v3/groups/{group_id}
+  method: DELETE
+  req_body: {}
+
+query_user_group:
+  url: /v3/groups/{group_id}
+  method: GET
+  req_body: {}
+
