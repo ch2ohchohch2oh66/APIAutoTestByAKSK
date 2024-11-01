@@ -8,7 +8,15 @@ import string
 
 def generate_random_string(length=10):
     characters = string.ascii_letters + string.digits
-    return ''.join(random.sample(population=characters, k=length))
+    return ''.join(random.choices(population=characters, k=length))
+
+def generate_random_alpha_string(length=10):
+    alpha_characters = string.ascii_letters
+    return ''.join(random.choices(population=alpha_characters, k=length))
+
+def generate_random_digit_string(length=10):
+    digit_characters = string.digits
+    return ''.join(random.choices(population=digit_characters, k=length))
 
 
 def find_value_by_key(json_data, target_key):

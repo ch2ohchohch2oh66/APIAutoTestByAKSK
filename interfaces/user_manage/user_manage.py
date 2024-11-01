@@ -21,7 +21,7 @@ class UserManage:
         current_file_path = os.path.abspath(__file__)
 
         # 构建YAML文件的路径
-        yaml_file_path = current_file_path.rsplit('.',1)[0] + '.yaml'
+        yaml_file_path = current_file_path.rsplit('.', 1)[0] + '.yaml'
         logger.info(f'UserManage load_yaml_content')
         self.yaml_content = load_yaml.load_yaml_content(yaml_file_path)
 
@@ -36,12 +36,22 @@ class UserManage:
         logger.info(f'{interface_name} : {url}')
         return api_client.send_request(method=method, url=url, json=body)
 
-    def update_user(self,api_client):
+    def update_user(self, api_client):
         interface_name = sys._getframe().f_code.co_name
-        logger.info("interface_name is : " + interface_name)
+        logger.info("interface_name is: " + interface_name)
         interface_param = self.yaml_content.get(interface_name)
         method = interface_param.get('method')
         url = interface_param.get('url')
         body = interface_param.get('req_body')
-        logger.info(f'{interface_name} : {url}')
+        logger.info(f'{interface_name}: {url}')
         api_client.send_request(method=method, url=url, json=body)
+
+    def delete_user(self, api_client, user_id):
+        interface_name = sys._getframe().f_code.co_name
+        logger.info('interface_name is: ' + interface_name)
+        interface_param = self.yaml_content.get(interface_name)
+        method = interface_param.get('method')
+        url = interface_param.get('url').format(user_id=user_id)
+        body = interface_param.get('req_body')
+        logger.info(f'{interface_name}: {url}')
+        return api_client.send_request(method=method, url=url, json=body)
