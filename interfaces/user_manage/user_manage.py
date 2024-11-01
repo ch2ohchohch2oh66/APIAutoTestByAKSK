@@ -34,7 +34,7 @@ class UserManage:
         if body is None:
             body = interface_param.get('req_body')
         logger.info(f'{interface_name} : {url}')
-        api_client.send_request(method=method, url=url, json=body)
+        return api_client.send_request(method=method, url=url, json=body)
 
     def update_user(self,api_client):
         interface_name = sys._getframe().f_code.co_name
