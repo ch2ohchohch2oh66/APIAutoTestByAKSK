@@ -7,7 +7,7 @@ import os
 from time import sleep
 import logging
 
-from utils.yaml_load import load_yaml
+from utils.yaml_manage import load_yaml
 
 logger = logging.getLogger()
 

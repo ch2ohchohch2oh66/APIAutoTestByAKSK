@@ -2,11 +2,13 @@
 # Author: Andy Freeman
 # Date: 2024/10/14
 # Description: Keep Hungry Keep Foolish
+
 import json
 import urllib
 import requests
 import logging
-from utils.yaml_load import load_env_config
+
+from utils.cofig_cache import EnvConfig
 from utils.signer import HttpRequest, Signer
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
@@ -16,11 +18,11 @@ logger = logging.getLogger()
 class ApiClient:
     def __init__(self):
         logger.info(f'ApiClient init')
-        logger.info(f'ApiClient load_env_config')
-        envconfig = load_env_config()
-        self.base_url = envconfig.get('base_url')
-        self.ak = envconfig.get('ak')
-        self.sk = envconfig.get('sk')
+        # logger.info(f'ApiClient load_env_config')
+        # envconfig = load_env_config()
+        self.base_url = EnvConfig.get('base_url')
+        self.ak = EnvConfig.get('ak')
+        self.sk = EnvConfig.get('sk')
 
     def send_request(self, **kwargs):
         method = kwargs.get('method', 'POST')

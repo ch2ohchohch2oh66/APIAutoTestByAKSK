@@ -8,7 +8,7 @@ import os.path
 import pytest
 
 from utils.api_client import ApiClient
-from utils.yaml_load import load_yaml, load_env_config, EnvConfig
+from utils.cofig_cache import load_env_config, EnvConfig
 
 logger = logging.getLogger()
 
@@ -22,6 +22,10 @@ def env_config(request):
     # logging.info(f'EnvConfig file path is {envconfig_path}')
     logger.info(f'conftest load_env_config')
     return load_env_config()
+
+
+def pytest_sessionstart(session):
+    EnvConfig.load()
 
 
 @pytest.fixture(scope='session')
