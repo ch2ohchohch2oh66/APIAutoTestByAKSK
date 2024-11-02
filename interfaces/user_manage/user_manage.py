@@ -6,7 +6,7 @@
 import os
 import sys
 import time
-import utils.load_yaml_content as load_yaml
+import utils.yaml_load as load_yaml
 import logging
 
 logger = logging.getLogger()
@@ -23,7 +23,7 @@ class UserManage:
         # 构建YAML文件的路径
         yaml_file_path = current_file_path.rsplit('.', 1)[0] + '.yaml'
         logger.info(f'UserManage load_yaml_content')
-        self.yaml_content = load_yaml.load_yaml_content(yaml_file_path)
+        self.yaml_content = load_yaml.load_yaml(yaml_file_path)
 
     def create_user(self, api_client, body=None):
         interface_name = sys._getframe().f_code.co_name

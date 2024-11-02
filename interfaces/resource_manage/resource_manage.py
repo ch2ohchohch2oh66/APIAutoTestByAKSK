@@ -7,7 +7,7 @@ import os
 from time import sleep
 import logging
 
-from utils.load_yaml_content import load_yaml_content
+from utils.yaml_load import load_yaml
 
 logger = logging.getLogger()
 
@@ -19,7 +19,7 @@ class ResourceManage:
         current_file_path = os.path.abspath(__file__)
         yaml_file_path = current_file_path.rsplit('.', 1)[0] + '.yaml'
         logger.info(f'ResourceManage load_yaml_content')
-        self.yaml_content = load_yaml_content(yaml_file_path)
+        self.yaml_content = load_yaml(yaml_file_path)
 
     def create_resource(self, client):
         interface_name = inspect.currentframe().f_code.co_name

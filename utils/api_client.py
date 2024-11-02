@@ -6,7 +6,7 @@ import json
 import urllib
 import requests
 import logging
-from utils.load_yaml_content import load_env_config
+from utils.yaml_load import load_env_config
 from utils.signer import HttpRequest, Signer
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 

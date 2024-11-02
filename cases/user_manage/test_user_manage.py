@@ -33,13 +33,14 @@ class TestCaseUserManage:
             }
         }
         res = self.interfaceUserManage.create_user(api_client, user_info)
+        assert 201 == res.status_code
         res_user_name = find_value_by_key(res.json(), 'name')
         user_id = find_value_by_key(res.json(), 'id')
         logger.info(f'create user_name: {res_user_name}, user_id: {user_id}')
-        assert res.status_code in [200, 201] and user_id and user_name == res_user_name
+        assert user_id and user_name == res_user_name
 
         del_res = self.interfaceUserManage.delete_user(api_client, user_id)
-        assert del_res.status_code in [200, 201, 204]
+        assert 204 == del_res.status_code
 
     def test_02_update_user(self, api_client):
         logger.info("testcase 02 update_user")
