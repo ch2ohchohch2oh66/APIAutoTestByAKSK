@@ -5,7 +5,7 @@
 
 import logging
 from interfaces.resource_manage.resource_manage import ResourceManage
-from utils.cofig_cache import EnvConfig
+from utils.cofig_cache import EnvConfig, TempData
 
 logger = logging.getLogger()
 
@@ -18,12 +18,12 @@ class TestCaseResourceManage:
     def test_01_create_resource(self, api_client):
         logger.info(f'testcase 01 create_resource')
         EnvConfig.get('base_url')
-        EnvConfig.set('new_url', 'https://andyfreeman.com')
+        TempData.set('new_url', 'https://andyfreeman.com')
         # self.interfaceResourceManage.create_resource(api_client)
         assert True
 
     def test_02_update_resource(self, api_client):
         logger.info(f'testcase 02 update_resource')
-        EnvConfig.get('new_url')
+        TempData.get('new_url')
         # self.interfaceResourceManage.update_resource(api_client)
         assert True

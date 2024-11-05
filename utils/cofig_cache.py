@@ -8,6 +8,8 @@ import os
 from utils.yaml_manage import load_yaml
 
 logger = logging.getLogger()
+
+
 def load_env_config():
     root_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
     config_folder = os.path.join(root_path, "config")
@@ -24,22 +26,37 @@ def load_env_config():
     return load_yaml(env_config_path)
 
 
-class EnvConfig():
-    _date = {}
+class EnvConfig:
+    _data = {}
 
     @classmethod
     def load(cls):
-        if not cls._date:
-            cls._date.update(load_env_config())
-        logger.info(f'global EnvConfig is: {cls._date}')
+        if not cls._data:
+            cls._data.update(load_env_config())
+        logger.info(f'global EnvConfig is: {cls._data}')
 
     @classmethod
     def get(cls, key):
-        value = cls._date.get(key, None)
+        value = cls._data.get(key, None)
         logger.info(f'get global config: {key} = {value}')
         return value
 
     @classmethod
-    def set(cls, key, value):
+    def _set(cls, key, value):
         logger.info(f'set global config: {key} = {value}')
-        cls._date.__setitem__(key, value)
+        cls._data.__setitem__(key, value)
+
+
+class TempData:
+    _data = {}
+
+    @classmethod
+    def set(cls, key, value):
+        logger.info(f'set temp date: {key} = {value}')
+        cls._data.__setitem__(key, value)
+
+    @classmethod
+    def get(cls, key):
+        value = cls._data.get(key, None)
+        logger.info(f'get temp data: {key} = {value}')
+        return value
