@@ -64,7 +64,8 @@ class ApiClient:
                 # 假设files是文件内容
                 r.body = files.encode('utf-8')
                 headers['Content-Type'] = 'application/octet-stream'
-
+        else:
+            headers['Content-Type'] = 'application/json;charset=UTF-8'
         # 更新HttpRequest对象的headers
         r.headers = headers
 

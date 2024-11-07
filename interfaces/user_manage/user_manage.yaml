@@ -1,27 +1,28 @@
 create_user:
   url: /v3/users
   method: POST
-  req_body: {
-    user: {
+  req_body:
+    user:
       name: IAMUser001
-    }
-  }
 
 update_user:
   url: /v3/users/{user_id}
   method: PATCH
-  req_body: {
-    user: {
+  req_body:
+    user:
       description: 修改用户
-    }
-  }
 
 delete_user:
   url: /v3/users/{user_id}
   method: DELETE
-  req_body: {}
+  req_body:
 
-query_user:
+get_user:
   url: /v3/users/{user_id}
   method: GET
-  req_body: {}
+  req_body:
+
+list_users:
+  url: /v3/users
+  method: GET
+  req_body:

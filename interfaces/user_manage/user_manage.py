@@ -36,15 +36,16 @@ class UserManage:
         logger.info(f'{interface_name} : {url}')
         return api_client.send_request(method=method, url=url, json=body)
 
-    def update_user(self, api_client):
+    def update_user(self, api_client, user_id, body=None):
         interface_name = sys._getframe().f_code.co_name
         logger.info("interface_name is: " + interface_name)
         interface_param = self.yaml_content.get(interface_name)
         method = interface_param.get('method')
-        url = interface_param.get('url')
-        body = interface_param.get('req_body')
+        url = interface_param.get('url').format(user_id=user_id)
+        if body is None:
+            body = interface_param.get('req_body')
         logger.info(f'{interface_name}: {url}')
-        api_client.send_request(method=method, url=url, json=body)
+        return api_client.send_request(method=method, url=url, json=body)
 
     def delete_user(self, api_client, user_id):
         interface_name = sys._getframe().f_code.co_name
@@ -55,3 +56,17 @@ class UserManage:
         body = interface_param.get('req_body')
         logger.info(f'{interface_name}: {url}')
         return api_client.send_request(method=method, url=url, json=body)
+
+    def get_user(self, api_client, user_id):
+        interface_name = sys._getframe().f_code.co_name
+        interface_param = self.yaml_content.get(interface_name)
+        method = interface_param.get('method')
+        url = interface_param.get('url').format(user_id=user_id)
+        return api_client.send_request(method=method, url=url)
+
+    def list_users(self, api_client):
+        interface_name = sys._getframe().f_code.co_name
+        interface_param = self.yaml_content.get(interface_name)
+        method = interface_param.get('method')
+        url = interface_param.get('url')
+        return api_client.send_request(method=method, url=url)

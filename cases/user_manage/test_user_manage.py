@@ -40,9 +40,14 @@ class TestCaseUserManage:
         res = self.interfaceUserManage.create_user(api_client, user_info)
         assert res and 201 == res.status_code
         res_user_name = find_value_by_key(res.json(), 'name')
-        user_id = jsonpath(res.json(),'$.user.id')[0]
+        user_id = jsonpath(res.json(), '$.user.id')[0]
         logger.info(f'create user_name: {res_user_name}, user_id: {user_id}')
         assert user_id and user_name == res_user_name
+
+        get_res = self.interfaceUserManage.get_user(api_client, user_id)
+        assert get_res
+        get_res_user_name = find_value_by_key(get_res.json(), 'name')
+        assert user_name == get_res_user_name
 
         del_res = self.interfaceUserManage.delete_user(api_client, user_id)
         assert del_res and 204 == del_res.status_code
@@ -59,9 +64,19 @@ class TestCaseUserManage:
         res = self.interfaceUserManage.create_user(api_client, user_info)
         assert 400 == res.status_code and 400 == find_value_by_key(res.json(), 'code')
 
-    def test_update_user(self, api_client):
-        logger.info("testcase 02 update_user")
-        self.interfaceUserManage.update_user(api_client)
+    @pytest.mark.parametrize('description', [
+        generate_random_string(1),
+        generate_random_alpha_string(256)
+    ])
+    def test_update_user_check_description_nomal(self, api_client, create_user_4_update, description):
+        logger.info(f'更新用户-描述-正常场景')
+        user_info = {'user': {'description': description}}
+        res = self.interfaceUserManage.update_user(api_client, user_id=create_user_4_update, body=user_info)
+        assert res
+        get_res = self.interfaceUserManage.get_user(api_client, user_id=create_user_4_update)
+        assert get_res
+        update_description = find_value_by_key(get_res.json(), 'description')
+        assert update_description == description
 
 
 if '__main__' == __name__:
