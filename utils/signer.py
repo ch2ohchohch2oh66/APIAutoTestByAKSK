@@ -3,7 +3,7 @@ import sys
 import hashlib
 import hmac
 import binascii
-from datetime import datetime
+from datetime import datetime, timezone
 
 if sys.version_info.major < 3:
     from urllib import quote, unquote
@@ -216,7 +216,7 @@ class Signer:
             r.body = r.body.encode('utf-8')
         headerTime = findHeader(r, HeaderXDate)
         if headerTime is None:
-            t = datetime.utcnow()
+            t = datetime.now(timezone.utc)
             r.headers[HeaderXDate] = datetime.strftime(t, BasicDateFormat)
         else:
             t = datetime.strptime(headerTime, BasicDateFormat)
