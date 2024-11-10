@@ -5,3 +5,4 @@ requests-toolbelt==1.0.0
 urllib3==2.2.3
 jsonpath==0.82.2
 allure-pytest==2.13.5
+allure-python-commons==2.13.5

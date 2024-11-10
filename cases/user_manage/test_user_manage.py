@@ -5,6 +5,8 @@
 
 from time import sleep
 
+import allure
+from allure_pytest.utils import allure_title
 from jsonpath import jsonpath
 import pytest
 import logging
@@ -15,7 +17,7 @@ from utils.data_process import find_value_by_key, generate_random_string, genera
 
 logger = logging.getLogger()
 
-
+@allure.feature('用户管理')
 class TestCaseUserManage:
 
     def setup_class(self):
@@ -28,6 +30,7 @@ class TestCaseUserManage:
             generate_random_alpha_string(32),
             generate_random_alpha_string(32) + generate_random_digit_string(10),
             '_' + generate_random_string(32) + ' -_'))
+    @allure.title('创建用户-用户名校验-正常场景')
     def test_create_user_check_name_normal(self, user_name):
         logger.info("创建用户-用户名校验-正常场景")
         user_info = {
@@ -52,6 +55,7 @@ class TestCaseUserManage:
         del_res = self.interfaceUserManage.delete_user(user_id)
         assert del_res and 204 == del_res.status_code
 
+    @allure.title('创建用户-用户名校验-异常场景')
     @pytest.mark.parametrize('user_name', (
             generate_random_alpha_string(65),
             '',
@@ -68,6 +72,7 @@ class TestCaseUserManage:
         generate_random_string(1),
         generate_random_alpha_string(256)
     ])
+    @allure.title('更新用户-描述-正常场景')
     def test_update_user_check_description_nomal(self, create_user_4_update, description):
         logger.info(f'更新用户-描述-正常场景')
         user_info = {'user': {'description': description}}
