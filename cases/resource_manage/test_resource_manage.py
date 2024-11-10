@@ -15,15 +15,15 @@ class TestCaseResourceManage:
         logger.info(f'TestCaseResourceManage setup_class')
         self.interfaceResourceManage = ResourceManage()
 
-    def test_01_create_resource(self, api_client):
+    def test_01_create_resource(self):
         logger.info(f'testcase 01 create_resource')
         EnvConfig.get('base_url')
         TempData.set('new_url', 'https://andyfreeman.com')
-        # self.interfaceResourceManage.create_resource(api_client)
+        # self.interfaceResourceManage.create_resource()
         assert True
 
-    def test_02_update_resource(self, api_client):
+    def test_02_update_resource(self):
         logger.info(f'testcase 02 update_resource')
         TempData.get('new_url')
-        # self.interfaceResourceManage.update_resource(api_client)
+        # self.interfaceResourceManage.update_resource()
         assert True

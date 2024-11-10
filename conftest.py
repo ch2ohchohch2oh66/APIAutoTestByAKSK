@@ -28,8 +28,8 @@ def pytest_sessionstart(session):
     EnvConfig.load()
 
 
-@pytest.fixture(scope='session')
-def api_client():
-    logger.info(f'conftest api_client')
-    client = ApiClient()
-    return client
+# @pytest.fixture(scope='session')
+# def api_client():
+#     logger.info(f'conftest api_client')
+#     client = ApiClient()
+#     return client

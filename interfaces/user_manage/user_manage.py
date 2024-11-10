@@ -3,11 +3,12 @@
 # Date: 2024/10/8
 # Description: Keep Hungry Keep Foolish
 
+import logging
 import os
 import sys
 import time
 import utils.yaml_manage as load_yaml
-import logging
+from utils.api_client import ApiClient
 
 logger = logging.getLogger()
 
@@ -25,7 +26,9 @@ class UserManage:
         logger.info(f'UserManage load_yaml_content')
         self.yaml_content = load_yaml.load_yaml(yaml_file_path)
 
-    def create_user(self, api_client, body=None):
+        self.api_client = ApiClient()
+
+    def create_user(self, body=None):
         interface_name = sys._getframe().f_code.co_name
         logger.info("interface_name is : " + interface_name)
         interface_param = self.yaml_content.get(interface_name)
@@ -34,9 +37,9 @@ class UserManage:
         if body is None:
             body = interface_param.get('req_body')
         logger.info(f'{interface_name} : {url}')
-        return api_client.send_request(method=method, url=url, json=body)
+        return self.api_client.send_request(method=method, url=url, json=body)
 
-    def update_user(self, api_client, user_id, body=None):
+    def update_user(self, user_id, body=None):
         interface_name = sys._getframe().f_code.co_name
         logger.info("interface_name is: " + interface_name)
         interface_param = self.yaml_content.get(interface_name)
@@ -45,9 +48,9 @@ class UserManage:
         if body is None:
             body = interface_param.get('req_body')
         logger.info(f'{interface_name}: {url}')
-        return api_client.send_request(method=method, url=url, json=body)
+        return self.api_client.send_request(method=method, url=url, json=body)
 
-    def delete_user(self, api_client, user_id):
+    def delete_user(self, user_id):
         interface_name = sys._getframe().f_code.co_name
         logger.info('interface_name is: ' + interface_name)
         interface_param = self.yaml_content.get(interface_name)
@@ -55,18 +58,18 @@ class UserManage:
         url = interface_param.get('url').format(user_id=user_id)
         body = interface_param.get('req_body')
         logger.info(f'{interface_name}: {url}')
-        return api_client.send_request(method=method, url=url, json=body)
+        return self.api_client.send_request(method=method, url=url, json=body)
 
-    def get_user(self, api_client, user_id):
+    def get_user(self, user_id):
         interface_name = sys._getframe().f_code.co_name
         interface_param = self.yaml_content.get(interface_name)
         method = interface_param.get('method')
         url = interface_param.get('url').format(user_id=user_id)
-        return api_client.send_request(method=method, url=url)
+        return self.api_client.send_request(method=method, url=url)
 
-    def list_users(self, api_client):
+    def list_users(self):
         interface_name = sys._getframe().f_code.co_name
         interface_param = self.yaml_content.get(interface_name)
         method = interface_param.get('method')
         url = interface_param.get('url')
-        return api_client.send_request(method=method, url=url)
+        return self.api_client.send_request(method=method, url=url)
