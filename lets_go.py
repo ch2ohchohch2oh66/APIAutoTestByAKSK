@@ -4,7 +4,7 @@
 # Description: Keep Hungry Keep Foolish
 import os
 from time import sleep
-from utils.allure_cumtom import SetAllure
+from utils.allure_cumtom import set_windows_title, set_overview_report_name, set_report_env_info
 import pytest
 
 from utils.cofig_cache import EnvConfig
@@ -14,10 +14,10 @@ def lets_go():
     pytest.main()
     # sleep(3)
     os.system('allure generate ./temp -o ./report -c')
-    setAllure = SetAllure()
-    setAllure.set_windows_title('./report', 'IAM测试报告')
-    setAllure.set_report_name('./report', 'IAM测试报告汇总')
-    setAllure.set_report_env_on_html('./report', {'baseUrl': EnvConfig.get('base_url')})
+    # 定制Allure报告
+    set_windows_title('./report', 'IAM测试报告')
+    set_overview_report_name('./report', 'IAM测试报告汇总')
+    set_report_env_info('./report', {'baseUrl': EnvConfig.get('base_url')})
 
 
 
