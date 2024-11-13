@@ -12,6 +12,7 @@ from utils.cofig_cache import EnvConfig, TempData
 
 logger = logging.getLogger()
 
+
 @allure.feature('资源管理')
 class TestCaseResourceManage:
     def setup_class(self):
