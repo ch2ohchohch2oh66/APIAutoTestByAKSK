@@ -9,6 +9,7 @@ import allure
 
 from interfaces.resource_manage.resource_manage import ResourceManage
 from utils.cofig_cache import EnvConfig, TempData
+from utils.database import DatabaseHelper
 
 logger = logging.getLogger()
 
@@ -18,6 +19,13 @@ class TestCaseResourceManage:
     def setup_class(self):
         logger.info(f'TestCaseResourceManage setup_class')
         self.interfaceResourceManage = ResourceManage()
+        db = DatabaseHelper()
+        try:
+            query = 'SELECT * FROM customers WHERE id = %s'
+            results = db.execute_query(query, (3,))
+            logger.info(f'查询结果：{results}')
+        finally:
+            db.close()
 
     @allure.title('创建资源')
     def test_01_create_resource(self):

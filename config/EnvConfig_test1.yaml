@@ -1,3 +1,10 @@
 base_url: https://iam.myhuaweicloud.com
 ak: BQMSQUJG64ZRO0MCJRPT
 sk: sqAJR3IKT9nKwqWYGuuSnSqQCVNiKXsiiEuCyTMb
+
+database:
+  host: mysql.sqlpub.com
+  port: 3306
+  user: andydb
+  password: UGcYhoQ8sCnpWfzP
+  database: andy_freeman
