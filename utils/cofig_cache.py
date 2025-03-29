@@ -31,8 +31,8 @@ class EnvConfig:
 
     @classmethod
     def load(cls):
-        if not cls._data:
-            cls._data.update(load_env_config())
+        # if not cls._data:
+        cls._data.update(load_env_config())
         logger.info(f'global EnvConfig is: {cls._data}')
 
     @classmethod

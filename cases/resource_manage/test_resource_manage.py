@@ -33,7 +33,7 @@ class TestCaseResourceManage:
         EnvConfig.get('base_url')
         TempData.set('new_url', 'https://andyfreeman.com')
         # self.interfaceResourceManage.create_resource()
-        assert True
+        assert False
 
     @allure.title('更新资源')
     def test_02_update_resource(self):

@@ -88,7 +88,7 @@ class TestCaseUserManage:
         assert update_description == description
 
 
-if '__main__' == __name__:
+if __name__ == "__main__":
     logger.info('start !')
     sleep(1)
     pytest.main(["-s", "-v", "cases/user_manage/test_user_manage.py"])

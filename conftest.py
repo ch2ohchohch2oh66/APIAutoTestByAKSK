@@ -10,26 +10,42 @@ import pytest
 from utils.api_client import ApiClient
 from utils.cofig_cache import load_env_config, EnvConfig
 
-logger = logging.getLogger()
+logger=logging.getLogger(__name__)
 
+@pytest.hookimpl(tryfirst=True)
+def pytest_configure(config):
+    print("pytest_configure hook.")
+    # 打印 config.option 以查看所有可用选项
+    # print("Available options in config.option:")
+    # for option in dir(config.option):
+    #     print(option)
 
-# @pytest.fixture(scope='session')
-def env_config(request):
-    logger.info(f'conftest env_config')
-    # current_file_path = os.path.abspath(__file__)
-    # current_dir = os.path.dirname(current_file_path)
-    # envconfig_path = os.path.join(current_dir, 'config', 'EnvConfig.yaml')
-    # logging.info(f'EnvConfig file path is {envconfig_path}')
-    logger.info(f'conftest load_env_config')
-    return load_env_config()
+    # 获取项目根目录
+    project_root = os.path.dirname(os.path.abspath(__file__))
+
+    # 修改 pytest 配置，动态设置 log_file
+    log_file_path = os.path.join(project_root, "temp", "log", "test_demo.log")
+    config.option.log_file = log_file_path
+    print(f"Logging to {log_file_path}")
+
+    # 修改 allure 配置，动态设置 allure_dir
+    allure_dir_path = os.path.join(project_root, "temp", "original_report_data")
+    config.option.allure_report_dir = allure_dir_path
+    config.option.clean_alluredir = True
+    print(f"Allure report dir is {allure_dir_path}")
+    EnvConfig._set('original_report_data', allure_dir_path)
 
 
 def pytest_sessionstart(session):
+    print("Session start hook.")
     EnvConfig.load()
 
 
-# @pytest.fixture(scope='session')
-# def api_client():
-#     logger.info(f'conftest api_client')
-#     client = ApiClient()
-#     return client
+@pytest.hookimpl(trylast=True)
+def pytest_sessionfinish(session, exitstatus):
+    logger.info("\n")
+    logger.info("Session finish hook.")
+
+
+
+

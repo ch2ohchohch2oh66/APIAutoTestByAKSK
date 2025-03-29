@@ -26,11 +26,14 @@ def lets_go():
         return
         
     # 测试全部通过或部分失败都生成报告
-    os.system('allure generate ./temp -o ./report -c')
+    original_report_data = EnvConfig.get('original_report_data')
+    allure_report = os.path.join(os.getcwd(), 'temp', 'allure_report')
+    os.system(f'allure generate {original_report_data} -o {allure_report} -c')
+    sleep(2)
     # 定制Allure报告
-    set_windows_title('./report', 'IAM测试报告')
-    set_overview_report_name('./report', 'IAM测试报告汇总')
-    set_report_env_info('./report', {'baseUrl': EnvConfig.get('base_url')})
+    set_windows_title(allure_report, 'IAM测试报告')
+    set_overview_report_name(allure_report, 'IAM测试报告汇总')
+    set_report_env_info(allure_report, {'baseUrl': EnvConfig.get('base_url')})
 
 
 
