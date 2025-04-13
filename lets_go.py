@@ -37,5 +37,5 @@ def lets_go():
 
 
 
-if '__main__' == __name__:
+if __name__ == '__main__':
     lets_go()
